@@ -21,6 +21,13 @@ sudo apt-get install exuberant-ctags nodejs npm default-jre default-jdk
 sudo npm -g install instant-markdown-d
 ```
 ### OS X
+Install [Homebrew](http://brew.sh/) first by typing 
+
+``/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`` 
+
+in terminal.
+
+then,
 ```bash
 brew install ctags Caskroom/cask/java nodejs npm 
 sudo npm -g install instant-markdown-d
