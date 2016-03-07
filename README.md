@@ -4,7 +4,9 @@ This ``.vimrc`` will **automatically install** some plugins and other related so
 Here is the effect:
 
 C/C++ coding:
-[![Screenshot][c_cpp_code]][c_cpp_code]
+
+[![Screenshot][c_cpp_code_1]][c_cpp_code_1]
+[![Screenshot][c_cpp_code_2]][c_cpp_code_2]
 
 English grammer checking:
 [![Screenshot][language_tool]][language_tool]
@@ -31,6 +33,7 @@ cp vimrc/.vimrc $HOME/
 ```
 And the Installation is finished.
 
-[c_cpp_code]: https://dl.dropboxusercontent.com/u/27853118/github_screenshot/c_cpp_coding.gif
+[c_cpp_code_1]: https://dl.dropboxusercontent.com/u/27853118/github_screenshot/c_cpp_coding_1.gif 
+[c_cpp_code_2]: https://dl.dropboxusercontent.com/u/27853118/github_screenshot/c_cpp_coding_2.gif
 [markdown]: https://dl.dropboxusercontent.com/u/27853118/github_screenshot/markdown.gif
 [language_tool]: https://dl.dropboxusercontent.com/u/27853118/github_screenshot/languageTool.gif
