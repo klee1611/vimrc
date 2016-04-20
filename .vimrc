@@ -123,6 +123,7 @@ endif
 " Tab key binding
 if version >= 700
   map <F4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+  map <F5> : set paste<CR>
 
   map t1 :tabn 1<CR>
   map t2 :tabn 2<CR>
