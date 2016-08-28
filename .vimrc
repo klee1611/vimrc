@@ -87,6 +87,7 @@ let g:languagetool_lang='en'
 " }}}
 
 " General settings {{{
+set cino=(0,g0,N-s,t0
 set nocp
 set invcursorline
 set wildmenu  " Complete the 
