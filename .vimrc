@@ -21,14 +21,12 @@ let InstallPlugin = 0
 if !filereadable(expand('~/.vim/bundle/vundle/README.md'))
 	silent call mkdir(expand("~/.vim/bundle", 1), 'p')
 	silent execute "!git clone https://github.com/gmarik/vundle " . expand("~/.vim/bundle/vundle")
-	silent execute "!curl -fo lan_tool.zip https://languagetool.org/download/LanguageTool-3.1.zip"
-	silent execute "!unzip lan_tool.zip -d " . expand("~/.vim")
 	silent execute "!git clone https://github.com/powerline/fonts.git " . expand("fonts")
 	silent execute expand("! ./fonts/install.sh")
 	silent execute "!git clone https://github.com/zeis/vim-kolor " . expand("kolor")
 	silent call mkdir(expand("~/.vim/colors", 1), 'p')
 	silent execute "!mv " . expand("kolor/colors/kolor.vim ") . expand("~/.vim/colors/")
-	silent execute "!rm -rf fonts kolor lan_tool.zip"
+	silent execute "!rm -rf fonts kolor"
 	silent call mkdir(expand("~/.vim/.backup", 1), 'p')
 	silent call mkdir(expand("~/.vim/.undodir", 1), 'p')
 	silent call mkdir(expand("~/.vim/.swp", 1), 'p')
@@ -46,16 +44,16 @@ call vundle#rc()
 Plugin 'gmarik/vundle'                   " let Vundle manage Vundle, required
 Plugin 'jiangmiao/auto-pairs'            " Auto complete {, [, (...
 Plugin 'L9'
-Plugin 'othree/vim-autocomplpop'
 Plugin 'majutsushi/tagbar'
 Plugin 'MarcWeber/vim-addon-mw-utils'    " Markdown utility
 Plugin 'tomtom/tlib_vim'                 " Some utility functions for VIM
-Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
-Plugin 'OmniCppComplete'
+Plugin 'SirVer/ultisnips'
+Plugin 'ervandew/supertab'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
-Plugin 'LanguageTool'                    " correct spelling/grammer errors
+Plugin 'rhysd/vim-grammarous'            " correct spelling/grammer errors
 Plugin 'suan/vim-instant-markdown'
 Plugin 'tpope/vim-fugitive'              " git command in vim
 Plugin 'junegunn/vim-easy-align'         " alignment for whitespace, :, =, ...
@@ -64,6 +62,9 @@ Plugin 'bronson/vim-trailing-whitespace' " eliminate whitespace at the end of ea
 call vundle#end()
 if InstallPlugin == 1
 	:PluginInstall
+	silent execute "!python ~/.vim/bundle/YouCompleteMe/install.py --clang-completer --ts-completer --java-completer"
+	silent call mkdir(expand("~/.vim/bundle/YouCompleteMe/cpp/ycm", 1), 'p')
+	silent execute "!cp " . expand("~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py ") . expand("~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py")
 endif
 filetype plugin indent on     " required
 filetype plugin on
@@ -73,18 +74,30 @@ filetype plugin on
 " tagbar settings
 " let g:tagbar_ctags_bin = 'c:\tools\ctags58\ctags.exe'
 let g:tagbar_width = 30
-" snippets and snipmate settings
-let g:snippets_dir = "~/.vim/bundle/vim-snippets"
-let g:acp_behaviorSnipmateLength=1
+
+" YCM
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
 " NERDTree settings
 let NERDTreeWinPos = 'right'
 let NERDTreeWinSize = 30
+
 " vim-airline settings
 set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
 set encoding=utf-8
 let g:airline_powerline_fonts = 1
-set guifont=Fira\ Mono\ for\ Powerline:h14
+
 "LanguageTool settings
 let g:languagetool_jar='~/.vim/LanguageTool-3.1/languagetool-commandline.jar'
 let g:languagetool_lang='en'
@@ -159,3 +172,4 @@ end
 " Crontabs must be edited in place
 au BufRead /tmp/crontab* :set backupcopy=yes
 " }}}
+
