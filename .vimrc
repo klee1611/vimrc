@@ -97,10 +97,6 @@ set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
 set encoding=utf-8
 let g:airline_powerline_fonts = 1
-
-"LanguageTool settings
-let g:languagetool_jar='~/.vim/LanguageTool-3.1/languagetool-commandline.jar'
-let g:languagetool_lang='en'
 " }}}
 
 " General settings {{{
