@@ -58,6 +58,7 @@ Plugin 'suan/vim-instant-markdown'
 Plugin 'tpope/vim-fugitive'              " git command in vim
 Plugin 'junegunn/vim-easy-align'         " alignment for whitespace, :, =, ...
 Plugin 'bronson/vim-trailing-whitespace' " eliminate whitespace at the end of each line
+Plugin 'nvie/vim-flake8'                 " python flake8 format check
 
 call vundle#end()
 if InstallPlugin == 1
