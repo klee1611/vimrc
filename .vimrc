@@ -59,6 +59,7 @@ Plugin 'tpope/vim-fugitive'              " git command in vim
 Plugin 'junegunn/vim-easy-align'         " alignment for whitespace, :, =, ...
 Plugin 'bronson/vim-trailing-whitespace' " eliminate whitespace at the end of each line
 Plugin 'nvie/vim-flake8'                 " python flake8 format check
+Plugin 'vim-syntastic/syntastic'         " syntax check
 
 call vundle#end()
 if InstallPlugin == 1
@@ -98,6 +99,16 @@ set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
 set encoding=utf-8
 let g:airline_powerline_fonts = 1
+
+" syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 " }}}
 
 " General settings {{{
