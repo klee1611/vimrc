@@ -6,6 +6,7 @@
 ```bash
 sudo apt-get install git curl nodejs npm default-jre default-jdk build-essential cmake python-dev python3-dev clang python
 sudo npm -g install instant-markdown-d
+sudo npm install -g eslint
 pip install flake8
 ```
 ### macOS
@@ -18,7 +19,8 @@ in terminal.
 then,
 ```bash
 brew install Caskroom/cask/java nodejs npm git macvim cmake python
-sudo npm -g install instant-markdown-d
+npm -g install instant-markdown-d
+npm install -g eslint
 xcode-select --install
 pip install flake8
 ```
@@ -35,6 +37,7 @@ the pre-installed Vim from Apple with borken Python support cannot work with the
 So **use macvim** instead of pre-installed Vim.
 
 ## Minimum Configuration
+### C++ automatically complete
 To work with C++ checking and auto complete functionality,  
 Linux user might have to add the C++ header directories to ``~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py`` manually.  
   
@@ -53,4 +56,12 @@ adding
 '/usr/include',
 '-isystem',
 '/usr/local/include',
+```
+
+### JavaScript syntax checking
+To check JavaScript syntax with ESLint,  
+copy ``.eslintrc`` to your home directory:  
+
+```
+cp vimrc/.eslintrc $HOME
 ```
