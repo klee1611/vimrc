@@ -64,7 +64,7 @@ Plugin 'vim-syntastic/syntastic'         " syntax check
 call vundle#end()
 if InstallPlugin == 1
 	:PluginInstall
-	silent execute "!python ~/.vim/bundle/YouCompleteMe/install.py --clang-completer --ts-completer --java-completer"
+	silent execute "!python3 ~/.vim/bundle/YouCompleteMe/install.py --all"
 	silent call mkdir(expand("~/.vim/bundle/YouCompleteMe/cpp/ycm", 1), 'p')
 	silent execute "!cp " . expand("~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py ") . expand("~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py")
 endif

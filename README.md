@@ -4,9 +4,11 @@
 ## Pre-Installation
 ### Ubuntu
 ```bash
-sudo apt-get install git curl nodejs npm default-jre default-jdk build-essential cmake python-dev python3-dev clang python
+sudo apt-get install -y git curl nodejs npm default-jre default-jdk build-essential cmake python-dev python3-dev clang python mono-complete
+sudo apt install golang-go
 sudo npm -g install instant-markdown-d
 sudo npm install -g eslint
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && sudo python get-pip.py
 pip install flake8
 ```
 ### macOS
@@ -18,10 +20,11 @@ in terminal.
 
 then,
 ```bash
-brew install Caskroom/cask/java nodejs npm git macvim cmake python
+brew install Caskroom/cask/java nodejs npm git macvim cmake python mono go
 npm -g install instant-markdown-d
 npm install -g eslint
 xcode-select --install
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && sudo python get-pip.py
 pip install flake8
 ```
 
