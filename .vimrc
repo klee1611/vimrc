@@ -128,6 +128,7 @@ set showmatch        " Show the matching braces and so on with different color
 set tabstop=4        " The width of a Tab (not whitespace)
 "set softtabstop=4   " Use whitespace to replace tab (use this or tabstop, choose one)
 set shiftwidth=4     " The width of the moving when using >> to move the content of a line
+set expandtab        " Replace tab with space
 set ru               " Display current position in thie file (at which line which word) at the bottom
 set nu               " Display line number at left
 set ignorecase       " Search both upper and lower case
