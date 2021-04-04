@@ -4,11 +4,11 @@
 ## Pre-Installation
 ### Ubuntu
 ```bash
-sudo apt-get install -y git curl nodejs npm default-jre default-jdk build-essential cmake python-dev python3-dev clang python mono-complete
-sudo apt install golang-go
+sudo apt install -y git curl nodejs npm default-jre default-jdk build-essential cmake python-dev python3-dev clang python mono-complete
+sudo apt install -y golang-go
 sudo npm -g install instant-markdown-d
 sudo npm install -g eslint
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && sudo python get-pip.py
+sudo apt install python-pip 
 pip install flake8
 ```
 ### macOS
