@@ -59,6 +59,7 @@ Plugin 'tpope/vim-fugitive'              " git command in vim
 Plugin 'junegunn/vim-easy-align'         " alignment for whitespace, :, =, ...
 Plugin 'bronson/vim-trailing-whitespace' " eliminate whitespace at the end of each line
 Plugin 'nvie/vim-flake8'                 " python flake8 format check
+Plugin 'Vimjas/vim-python-pep8-indent'   " python flake8 indent correct
 Plugin 'vim-syntastic/syntastic'         " syntax check
 
 call vundle#end()
@@ -125,6 +126,7 @@ set undodir=~/.vim/undodir//
 set backup           " keep a backup file
 set bs=2             " allow backspacing over everything in insert mode
 set ai               " always set autoindenting on
+set smartindent
 set viminfo='20,\"50 " read/write a .viminfo file, don't store more
 set showmatch        " Show the matching braces and so on with different color
 set tabstop=4        " The width of a Tab (not whitespace)
