@@ -66,5 +66,5 @@ To check JavaScript syntax with ESLint,
 copy ``.eslintrc`` to your home directory:  
 
 ```
-cp vimrc/.eslintrc $HOME
+cp vimrc/.tern-config $HOME
 ```

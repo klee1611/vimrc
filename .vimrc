@@ -61,6 +61,8 @@ Plugin 'bronson/vim-trailing-whitespace' " eliminate whitespace at the end of ea
 Plugin 'nvie/vim-flake8'                 " python flake8 format check
 Plugin 'Vimjas/vim-python-pep8-indent'   " python flake8 indent correct
 Plugin 'vim-syntastic/syntastic'         " syntax check
+Plugin 'sheerun/vim-polyglot'            " language packs
+
 
 call vundle#end()
 if InstallPlugin == 1
@@ -101,7 +103,7 @@ let g:airline#extensions#tabline#enabled = 1
 set encoding=utf-8
 let g:airline_powerline_fonts = 1
 
-" syntastic settings
+" syntastic settings (vim-syntastic)
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -110,7 +112,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['standard']
+let g:syntastic_javascript_standard_generic = 1
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exec = 'eslint'
 let g:syntastic_python_checkers = ['python']
 let g:syntastic_python_python_exec = 'python3'
 " }}}
