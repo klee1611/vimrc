@@ -11,16 +11,13 @@ elseif ($TERM == "vt100")
 endif
 
 set t_Co=256
-
-let s:os_win = has('win32') || has('win64')
 " }}}
 
-" Set up Vundle and install plugins {{{
-set nocompatible
-let InstallPlugin = 0
-if !filereadable(expand('~/.vim/bundle/vundle/README.md'))
-	silent call mkdir(expand("~/.vim/bundle", 1), 'p')
-	silent execute "!git clone https://github.com/gmarik/vundle " . expand("~/.vim/bundle/vundle")
+" Install vim-plug, fonts, color scheme {{{
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.github.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
 	silent execute "!git clone https://github.com/powerline/fonts.git " . expand("fonts")
 	silent execute expand("! ./fonts/install.sh")
 	silent execute "!git clone https://github.com/zeis/vim-kolor " . expand("kolor")
@@ -30,58 +27,64 @@ if !filereadable(expand('~/.vim/bundle/vundle/README.md'))
 	silent call mkdir(expand("~/.vim/.backup", 1), 'p')
 	silent call mkdir(expand("~/.vim/.undodir", 1), 'p')
 	silent call mkdir(expand("~/.vim/.swp", 1), 'p')
-	"if s:os_win
-	"else
-	let InstallPlugin = 1
 endif
-
-syntax on
-filetype off                  " required
-set rtp+=~/.vim
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
-
-Plugin 'gmarik/vundle'                   " let Vundle manage Vundle, required
-Plugin 'jiangmiao/auto-pairs'            " Auto complete {, [, (...
-Plugin 'L9'
-Plugin 'majutsushi/tagbar'
-Plugin 'MarcWeber/vim-addon-mw-utils'    " Markdown utility
-Plugin 'tomtom/tlib_vim'                 " Some utility functions for VIM
-Plugin 'honza/vim-snippets'
-Plugin 'SirVer/ultisnips'
-Plugin 'ervandew/supertab'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/nerdtree'
-Plugin 'bling/vim-airline'
-Plugin 'rhysd/vim-grammarous'            " correct spelling/grammer errors
-Plugin 'suan/vim-instant-markdown'
-Plugin 'tpope/vim-fugitive'              " git command in vim
-Plugin 'junegunn/vim-easy-align'         " alignment for whitespace, :, =, ...
-Plugin 'bronson/vim-trailing-whitespace' " eliminate whitespace at the end of each line
-Plugin 'nvie/vim-flake8'                 " python flake8 format check
-Plugin 'Vimjas/vim-python-pep8-indent'   " python flake8 indent correct
-Plugin 'vim-syntastic/syntastic'         " syntax check
-Plugin 'sheerun/vim-polyglot'            " language packs
-
-
-call vundle#end()
-if InstallPlugin == 1
-	:PluginInstall
-	silent execute "!python3 ~/.vim/bundle/YouCompleteMe/install.py --all"
-	silent call mkdir(expand("~/.vim/bundle/YouCompleteMe/cpp/ycm", 1), 'p')
-	silent execute "!cp " . expand("~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py ") . expand("~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py")
-endif
-filetype plugin indent on     " required
-filetype plugin on
 " }}}
 
-" Plugins settings {{{
+" Plugins (Install or Update) {{{
+if has('python3')
+endif
+
+function! BuildYCM(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.force
+    !python3 ./install.py --all
+	silent call mkdir(expand("cpp/ycm", 1), 'p')
+    !cp third_party/ycmd/examples/.ycm_extra_conf.py cpp/ycm/.ycm_extra_conf.py
+  endif
+endfunction
+
+call plug#begin('~/.vim/plugged')
+
+" Code snips
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+
+" Code auto-complete
+Plug 'jiangmiao/auto-pairs'            " Auto complete {, [, (...
+Plug 'ervandew/supertab'               " Use tab to complete file path, ...
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM')  }
+Plug 'junegunn/vim-easy-align'         " alignment for whitespace, :, =, ...
+Plug 'bronson/vim-trailing-whitespace' " eliminate whitespace at the end of each line
+
+" lint, syntax
+Plug 'vim-syntastic/syntastic'                          " syntax check
+Plug 'nvie/vim-flake8', {'for': 'python'}               " python flake8 format check
+Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'} " python flake8 indent correct
+Plug 'fatih/vim-go', {'do': ':slient :GoUpdateBinaries', 'for': 'go'}
+
+" VIM display
+Plug 'sheerun/vim-polyglot'            " language packs
+Plug 'bling/vim-airline'
+
+" Other help tools
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'preservim/tagbar'
+Plug 'tpope/vim-fugitive'              " git command in vim
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+
+call plug#end()
+" }}}
+
+" Plugins parameters {{{
 " tagbar settings
 " let g:tagbar_ctags_bin = 'c:\tools\ctags58\ctags.exe'
 let g:tagbar_width = 30
 
 " YCM
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
 
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -157,7 +160,7 @@ else
 	set fileencoding=taiwan
 endif
 
-" Tab key binding
+" Key binding
 if version >= 700
 	map <F2> :NERDTreeToggle<CR>
 	map <F3> :Tagbar<CR>
