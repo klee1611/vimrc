@@ -63,7 +63,7 @@ Plug 'bronson/vim-trailing-whitespace' " eliminate whitespace at the end of each
 Plug 'vim-syntastic/syntastic'                          " syntax check
 Plug 'nvie/vim-flake8', {'for': 'python'}               " python flake8 format check
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'} " python flake8 indent correct
-Plug 'fatih/vim-go', {'do': ':slient :GoUpdateBinaries', 'for': 'go'}
+Plug 'fatih/vim-go', {'do': ':silent :GoUpdateBinaries', 'for': 'go'}
 
 " VIM display
 Plug 'sheerun/vim-polyglot'            " language packs
