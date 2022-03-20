@@ -33,8 +33,25 @@ function main() {
     mv "${BASE_DIR}/.vimrc" ${HOME}
     mv "${BASE_DIR}/.tern-config" ${HOME}
 
+    echo "Installing fonts and color scheme..."
+	git clone git@github.com:powerline/fonts.git fonts
+    ./fonts/install.sh
+	git clone git@github.com:zeis/vim-kolor.git kolor
+    mkdir -p ${HOME}/.vim/colors
+    mv kolor/colors/kolor.vim ${HOME}/.vim/colors/
+    rm -rf fonts kolor
+
+    echo "Creating folders..."
+    mkdir -p ${HOME}/.vim/.backup
+    mkdir -p ${HOME}/.vim/.swp
+    mkdir -p ${HOME}/.vim/.undodir
+
+    echo "Installing vim-plug..."
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
     echo "Done."
-    echo "Plugins will be installed when VIM is opened next time."
+    echo 'Use `:PlugInstall` to install plugins when VIM is opened next time.'
 }
 
 main

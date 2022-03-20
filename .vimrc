@@ -13,23 +13,6 @@ endif
 set t_Co=256
 " }}}
 
-" Install vim-plug, fonts, color scheme {{{
-if empty(glob('~/.vim/autoload/plug.vim'))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-                \ https://raw.github.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
-	silent execute "!git clone https://github.com/powerline/fonts.git " . expand("fonts")
-	silent execute expand("! ./fonts/install.sh")
-	silent execute "!git clone https://github.com/zeis/vim-kolor " . expand("kolor")
-	silent call mkdir(expand("~/.vim/colors", 1), 'p')
-	silent execute "!mv " . expand("kolor/colors/kolor.vim ") . expand("~/.vim/colors/")
-	silent execute "!rm -rf fonts kolor"
-	silent call mkdir(expand("~/.vim/.backup", 1), 'p')
-	silent call mkdir(expand("~/.vim/.undodir", 1), 'p')
-	silent call mkdir(expand("~/.vim/.swp", 1), 'p')
-endif
-" }}}
-
 " Plugins (Install or Update) {{{
 if has('python3')
 endif
