@@ -1,3 +1,8 @@
+## Overview
+For neovim.  
+Still under development.  
+Use this at your own risk.  
+
 ## Support Languages
 * Python
 * Javascript
