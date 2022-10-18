@@ -30,13 +30,13 @@ function main() {
     pip3 install flake8
 
     echo "Moving config files..."
-    mv "${BASE_DIR}/.vimrc" ${HOME}
-    mv "${BASE_DIR}/.tern-config" ${HOME}
+    cp "${BASE_DIR}/.vimrc" ${HOME}
+    cp "${BASE_DIR}/.tern-config" ${HOME}
 
     echo "Installing fonts and color scheme..."
 	git clone git@github.com:powerline/fonts.git fonts
     ./fonts/install.sh
-	git clone git@github.com:zeis/vim-kolor.git kolor
+	git clone https://github.com/zeis/vim-kolor.git kolor
     mkdir -p ${HOME}/.vim/colors
     mv kolor/colors/kolor.vim ${HOME}/.vim/colors/
     rm -rf fonts kolor
