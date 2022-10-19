@@ -34,7 +34,7 @@ function main() {
     cp "${BASE_DIR}/.tern-config" ${HOME}
 
     echo "Installing fonts and color scheme..."
-	git clone git@github.com:powerline/fonts.git fonts
+	git clone https://github.com/powerline/fonts.git fonts
     ./fonts/install.sh
 	git clone https://github.com/zeis/vim-kolor.git kolor
     mkdir -p ${HOME}/.vim/colors
