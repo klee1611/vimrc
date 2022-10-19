@@ -32,13 +32,13 @@ function main() {
 
     echo "Moving config files..."
     mkdir -p ${NVIM_DIR}
-    mv "${BASE_DIR}/init.vim" ${NVIM_DIR}/init.vim
-    mv "${BASE_DIR}/.tern-config" ${HOME}
+    cp "${BASE_DIR}/init.vim" ${NVIM_DIR}/init.vim
+    cp "${BASE_DIR}/.tern-config" ${HOME}
 
     echo "Installing fonts and color scheme..."
-	git clone git@github.com:powerline/fonts.git fonts
+	git clone https://github.com/powerline/fonts.git fonts
     ./fonts/install.sh
-	git clone git@github.com:zeis/vim-kolor.git kolor
+	git clone https://github.com/zeis/vim-kolor.git kolor
     mkdir -p ${NVIM_DIR}/colors
     mv kolor/colors/kolor.vim ${NVIM_DIR}/colors/
     rm -rf fonts kolor
