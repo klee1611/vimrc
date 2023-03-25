@@ -28,7 +28,7 @@ function main() {
 
     npm -g install instant-markdown-d
     npm install -g eslint
-    pip3 install flake8
+    pip3 install flake8 neovim
 
     echo "Moving config files..."
     mkdir -p ${NVIM_DIR}
