@@ -17,18 +17,6 @@ set t_Co=256
 if has('python3')
 endif
 
-function! BuildYCM(info)
-  " info is a dictionary with 3 fields
-  " - name:   name of the plugin
-  " - status: 'installed', 'updated', or 'unchanged'
-  " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a:info.force
-    !python3 ./install.py --all
-	silent call mkdir(expand("cpp/ycm", 1), 'p')
-    !cp third_party/ycmd/examples/.ycm_extra_conf.py cpp/ycm/.ycm_extra_conf.py
-  endif
-endfunction
-
 call plug#begin(stdpath('config') . '/plugged')
 
 " Code snips
@@ -37,8 +25,7 @@ Plug 'SirVer/ultisnips'
 
 " Code auto-complete
 Plug 'jiangmiao/auto-pairs'            " Auto complete {, [, (...
-Plug 'ervandew/supertab'               " Use tab to complete file path, ...
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM')  }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/vim-easy-align'         " alignment for whitespace, :, =, ...
 Plug 'bronson/vim-trailing-whitespace' " eliminate whitespace at the end of each line
 Plug 'github/copilot.vim'
@@ -52,6 +39,7 @@ Plug 'fatih/vim-go', {'do': ':silent :GoUpdateBinaries', 'for': 'go'}
 " VIM display
 Plug 'sheerun/vim-polyglot'            " language packs
 Plug 'bling/vim-airline'
+Plug 'ryanoasis/vim-devicons'
 
 " Other help tools
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -67,18 +55,42 @@ call plug#end()
 " let g:tagbar_ctags_bin = 'c:\tools\ctags58\ctags.exe'
 let g:tagbar_width = 30
 
-" YCM
-let g:ycm_global_ycm_extra_conf = stdpath('config') . '/plugged/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
-
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:SuperTabDefaultCompletionType = '<C-n>' "?
+
+" Coc settings
+set updatetime=300
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+imap <silent><script><expr> <C-e> coc#pum#visible() ? coc#pum#cancel() : copilot#Accept("\<C-e>")
+
+function! s:check_back_space() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+	\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use \rn to rename variables, functions, ...
+nmap <leader>rn <Plug>(coc-rename)
+
+" Enable scrolling floating windows
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
 
 " NERDTree settings
 let NERDTreeWinPos = 'right'
